@@ -148,6 +148,13 @@ notebook/templates/*.html
 
 # Temporary files used for testing
 tmp/
+*.zip
+data/OC_K23/*
+*.mrt
 
 # Mac stuff
 .DS_Store
+
+# emacs
+*~
+
