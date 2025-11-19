@@ -1,0 +1,6 @@
+﻿#Name,ra,dec,dist (kpc),muastar,sig_muastar,mud,sig_mud,vrad [km/s],vdisp [km/s],sig_vdisp,ref 
+Fornax,39.9971,-34.4492,147,0.376,0.003,-0.413,0.003,29,10.7,0.2,"sohn et al 2018, wolf et al 2010, karachentsev"
+SexDSph,153.2625,-1.6147,96,-0.496,0.025,0.077,0.02,227,7.1,0.3,"sohn et al 2018, wolf et al 2010, karachentsev"
+Sculptor,15.0392,-33.7092,86,0.082,0.005,-0.131,0.004,105,9,0.2,"sohn et al 2018, wolf et al 2010, karachentsev"
+LeoIV,173.2375,-0.53333333,154,-0.11,0.24,-0.45,0.19,131.6,3.4,1,2021ApJ...920...92J
+LeoV,172.79,2.22,169,-0.02,0.29,-0.4,0.21,173.1,0.1,1.5,2021ApJ...920...92J
