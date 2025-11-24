@@ -1,3 +1,8 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:00447e4e89d37cabc130b09746854305e3ec067ed871834b486466b7d4af8706
-size 60
+## jupyter
+.ipynb_checkpoints
+
+## emacs
+*~
+
+## mac
+.DS_Store
