@@ -8,6 +8,8 @@ of observing baseline and distance.
 
 from astropy import units as u
 
+k = 4.74 *((u.km/u.s)/(u.pc)/(u.arcsec/u.yr))  ## conversion const for PMs
+
 
 def mu(dist, vt):
     """Convert transverse velocity and distance to proper motion.
@@ -41,11 +43,12 @@ def mu(dist, vt):
     >>> mu(50.*u.kpc, 100.*u.km/u.s)
     <Quantity ... uas / yr>
     """
+
     if not isinstance(dist, u.Quantity):
         dist = dist * u.kpc
     if not isinstance(vt, u.Quantity):
         vt = vt * (u.km / u.s)
-    return ((vt / dist) / (4.74 * u.kpc / (u.km / u.s) / u.mas)).to(u.uas / u.yr)
+    return (vt / (k * dist)).to(u.uas/u.yr)
 
 
 def vt(dist, pm):
@@ -84,7 +87,7 @@ def vt(dist, pm):
         dist = dist * u.kpc
     if not isinstance(pm, u.Quantity):
         pm = pm * (u.uas / u.yr)
-    return (pm.to(u.mas / u.yr) * dist * 4.74 * (u.km / u.s) / (u.mas / u.yr) / u.kpc).to(u.km / u.s)
+    return (k * dist * pm).to(u.km/u.s)
 
 
 def velocity_limit(baseline, dist, loc_hls=100. * u.uas, Nobs_hls=5):
