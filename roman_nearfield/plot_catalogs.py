@@ -193,7 +193,7 @@ def plot_galaxies(sp, gals=None, glist=None, annotate=False, glabels=None,
             r = 80
         else:
             nbgs = SkyCoord(gals['ra'].values * u.deg, gals['dec'].values * u.deg)
-            dists = ((gals['distance'].values * u.kpc).to(u.Mpc)).value
+            dists = ((gals['distance'].values * u.kpc)).value #.to(u.Mpc)).value
             norm = LogNorm(vmin=15, vmax=350)
             r = 60
 
