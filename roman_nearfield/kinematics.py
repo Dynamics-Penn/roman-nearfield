@@ -156,7 +156,7 @@ def velocity_limit_year(year, dist, hls_year=2027 * u.yr,
     """
     
     if (year>hls_year):
-        raise("Error: negative baseline requested.")
+        raise(Exception("Error: negative baseline requested."))
     else:
         pm_limit = loc_hls / (hls_year - year) / Nobs_hls ** 0.5
         return vt(dist, pm_limit).to(u.km / u.s)
