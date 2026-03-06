@@ -6,6 +6,7 @@ velocities, and for computing proper motion detection limits as a function
 of observing baseline and distance.
 """
 
+import numpy as np
 from astropy import units as u
 
 k = 4.74 *((u.km/u.s)/(u.pc)/(u.arcsec/u.yr))  ## conversion const for PMs
