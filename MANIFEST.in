@@ -1,3 +1,13 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1fdb91224fe7eea74799862caa06ef01d2af5819f3fe21e58315e179ce98979d
-size 324
+# Include the README and licence in the source distribution
+include README.md
+include LICENSE
+include pyproject.toml
+
+# Include the test suite
+recursive-include test *.py
+
+# Exclude compiled bytecode and editor artefacts
+global-exclude __pycache__
+global-exclude *.py[cod]
+global-exclude .DS_Store
+global-exclude *.egg-info
