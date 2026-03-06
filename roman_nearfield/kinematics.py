@@ -154,9 +154,12 @@ def velocity_limit_year(year, dist, hls_year=2027 * u.yr,
     >>> velocity_limit_year(2016.*u.yr, 50.*u.kpc)
     <Quantity ... km / s>
     """
-    pm_limit = loc_hls / (hls_year - year) / Nobs_hls ** 0.5
-    return vt(dist, pm_limit).to(u.km / u.s)
-
+    
+    if (year>hls_year):
+        raise("Error: negative baseline requested.")
+    else:
+        pm_limit = loc_hls / (hls_year - year) / Nobs_hls ** 0.5
+        return vt(dist, pm_limit).to(u.km / u.s)
 
 def get_year(s):
     """Extract the year as a float from a string beginning with a 4-digit year.
