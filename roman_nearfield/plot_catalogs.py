@@ -177,7 +177,7 @@ def plot_galaxies(sp, gals=None, glist=None, annotate=False, glabels=None,
         norm = LogNorm(vmin=0.2, vmax=10)
         r = 80
     else:
-        if 'RAJ2000' in gals.keys():
+        if 'RAJ2000' in gals.keys():  #nearby galaxies
             ras = []
             decs = []
             hms_str = ['h', 'm', 's']
@@ -191,7 +191,7 @@ def plot_galaxies(sp, gals=None, glist=None, annotate=False, glabels=None,
             dists = gals['D (Mpc)']
             norm = LogNorm(vmin=0.2, vmax=10)
             r = 80
-        else:
+        else:  #milky way satellites
             nbgs = SkyCoord(gals['ra'].values * u.deg, gals['dec'].values * u.deg)
             dists = ((gals['distance'].values * u.kpc)).value #.to(u.Mpc)).value
             norm = LogNorm(vmin=15, vmax=350)
