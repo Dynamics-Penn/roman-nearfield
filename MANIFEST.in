@@ -1,0 +1,13 @@
+# Include the README and licence in the source distribution
+include README.md
+include LICENSE
+include pyproject.toml
+
+# Include the test suite
+recursive-include test *.py
+
+# Exclude compiled bytecode and editor artefacts
+global-exclude __pycache__
+global-exclude *.py[cod]
+global-exclude .DS_Store
+global-exclude *.egg-info
