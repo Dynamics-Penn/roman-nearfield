@@ -18,7 +18,7 @@ Or, you can simply `pip install git+https://github.com/Dynamics-Penn/roman-nearf
 
 ## Reference
 
-If you use this repo please cite [Sanderson et al in prep](https://www.overleaf.com/read/xgxwjmkmctnc#b4a1df) (will be on arxiv by March 9 2026). Thank you!
+Please reference this repo as [![DOI](https://zenodo.org/badge/1100614071.svg)](https://doi.org/10.5281/zenodo.18961306) and cite [Sanderson et al in prep](https://www.overleaf.com/read/xgxwjmkmctnc#b4a1df) (will be on arxiv by March 13 2026). Thank you!
 
 The package consolidates functions that were previously duplicated across
 multiple Jupyter notebooks into a single importable library, covering:
