@@ -3,9 +3,22 @@
 This repository reproduces plots from "A field guide to the near field" (Sanderson et al in prep).
 Footprints for the core community surveys were provided by Saurabh Jha and Javier Sanchez (HLWAS and GBTDS) and Bob Benjamin (GPS).
 
+# UPDATED 11 March 2026!
+
+This update refactors the functions used in the notebooks into a pip-installable package.
+If you want the updated version in your local clone, you need a hard reset (stash your local changes first before you do it!):
+```
+git stash
+git fetch origin
+git reset --hard origin/main
+git stash pop
+```
+
+Or, you can simply `pip install git+https://github.com/Dynamics-Penn/roman-nearfield.git` to get the new version and update your copies of the notebooks by hand.
+
 ## Reference
 
-If you use this repo please cite [Sanderson et al in prep](https://www.overleaf.com/read/xgxwjmkmctnc#b4a1df) (will be on arxiv by March 9 2026). Thank you!
+Please reference this repo as [![DOI](https://zenodo.org/badge/1100614071.svg)](https://doi.org/10.5281/zenodo.18961306) and cite [Sanderson et al in prep](https://www.overleaf.com/read/xgxwjmkmctnc#b4a1df) (will be on arxiv by March 13 2026). Thank you!
 
 The package consolidates functions that were previously duplicated across
 multiple Jupyter notebooks into a single importable library, covering:
@@ -17,6 +30,8 @@ multiple Jupyter notebooks into a single importable library, covering:
 - Proper motion / transverse velocity conversions
 
 ## Installation
+
+You can now either install with `pip` or clone the repo, as described below.
 
 ### Cloning the repository
 
@@ -116,3 +131,7 @@ pytest test/ -v
 ## License
 
 This repo is released under the GNU Affero General Public License v3.0. See [LICENSE](LICENSE) for details.
+
+## AI acknowledgment
+
+Code in this repo was refactored with help from Claude Sonnet 4.6.
