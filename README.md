@@ -131,3 +131,7 @@ pytest test/ -v
 ## License
 
 This repo is released under the GNU Affero General Public License v3.0. See [LICENSE](LICENSE) for details.
+
+## AI acknowledgment
+
+Code in this repo was refactored with help from Claude Sonnet 4.6.
