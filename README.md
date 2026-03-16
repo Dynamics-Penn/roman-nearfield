@@ -1,6 +1,6 @@
 # roman-nearfield
 
-This repository reproduces plots from "A field guide to the near field" (Sanderson et al in prep).
+This repository reproduces plots from "A field guide to the near field" [(Sanderson et al 2026)](https://arxiv.org/abs/2603.12981).
 Footprints for the core community surveys were provided by Saurabh Jha and Javier Sanchez (HLWAS and GBTDS) and Bob Benjamin (GPS).
 
 # UPDATED 11 March 2026!
@@ -18,7 +18,7 @@ Or, you can simply `pip install git+https://github.com/Dynamics-Penn/roman-nearf
 
 ## Reference
 
-Please reference this repo as [![DOI](https://zenodo.org/badge/1100614071.svg)](https://doi.org/10.5281/zenodo.18961306) and cite [Sanderson et al in prep](https://www.overleaf.com/read/xgxwjmkmctnc#b4a1df) (will be on arxiv by March 13 2026). Thank you!
+Please reference this repo as [![DOI](https://zenodo.org/badge/1100614071.svg)](https://doi.org/10.5281/zenodo.18961306) and cite [(Sanderson et al 2026)](https://arxiv.org/abs/2603.12981). Thank you!
 
 The package consolidates functions that were previously duplicated across
 multiple Jupyter notebooks into a single importable library, covering:
