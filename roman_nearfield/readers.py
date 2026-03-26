@@ -63,16 +63,21 @@ def read_galaxies():
     return nbg, nbgs
 
 
-def read_galaxies_all(dmax=10 * u.Mpc):
-    """Read all galaxies within a specified distance from the Karachentsev et al. 2013 catalog.
+def read_galaxies_all(dmax=10 * u.Mpc,kara=False):
+    """Read all galaxies within a specified distance.
 
     Reads the ``nbgs.csv`` file and returns galaxies with distances below
     ``dmax``, together with their sky coordinates.
+
+    If ``kara=False`` (the default), they are read from the Local Volume Database (Pace 2025).
+    If ``kara=True``, the galaxies are read from the Karachentsev 2013 catalog.
 
     Parameters
     ----------
     dmax : astropy.units.Quantity, optional
         Maximum distance for the returned sample. Default is 10 Mpc.
+    kara: Boolean, optional
+        which catalog to use. Default is LVDB.
 
     Returns
     -------
@@ -89,11 +94,24 @@ def read_galaxies_all(dmax=10 * u.Mpc):
     """
     import pandas as pd
 
-    nbg_all = pd.read_csv(DATA_DIR / 'nbgs.csv')
-    ras = nbg_all['RAJ2000'].values * u.deg
-    decs = nbg_all['DEJ2000'].values * u.deg
-    dsel = nbg_all['D (Mpc)'] < dmax.to(u.Mpc)
-    nbgs_all = astropy.coordinates.SkyCoord(ras[dsel], decs[dsel])
+    if kara:
+        nbg_all = pd.read_csv(DATA_DIR / 'nbgs.csv')
+        ras = nbg_all['RAJ2000'].values * u.deg
+        decs = nbg_all['DEJ2000'].values * u.deg
+        dsel = nbg_all['D (Mpc)'] < dmax.to(u.Mpc)
+        nbgs_all = astropy.coordinates.SkyCoord(ras[dsel], decs[dsel])
+    else:
+        version_number_string = table.Table.read(
+            'https://raw.githubusercontent.com/apace7/local_volume_database/main/code/release_version.txt',
+            format='ascii.fast_no_header')['col1'][0]
+        nbg_all = table.Table.read(
+            'https://github.com/apace7/local_volume_database/releases/download/'
+            + version_number_string + '/comb_all.csv')
+        ras = nbg_all['ra'] * u.deg
+        decs = nbg_all['dec'] * u.deg
+        dsel = nbg_all['distance'] < dmax.to(u.kpc).value
+        nbgs_all = astropy.coordinates.SkyCoord(ras[dsel], decs[dsel])
+
 
     return nbg_all[dsel], nbgs_all
 
