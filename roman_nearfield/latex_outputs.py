@@ -8,6 +8,7 @@ import numpy as np
 import astropy.coordinates
 import astropy.table as table
 from astropy import units as u
+import healpy as hp
 import re
 from collections import Counter
 
