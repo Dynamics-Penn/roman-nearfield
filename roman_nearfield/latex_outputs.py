@@ -58,6 +58,13 @@ def get_yearcode(r):
         raise ValueError(f"No 4-digit year found in: {r!r}")
     return match.group()[2:]
 
+def get_journalcode(r):
+    match = re.search(r'\d{4}(.{2})', r)
+    if match is None:
+        raise ValueError(f"Could not extract journal code from: {r!r}")
+    return match.group(1)
+
+
 def parse_references(mag_refs, dist_refs):
 
     mrl = mag_refs.filled().tolist()
@@ -68,16 +75,19 @@ def parse_references(mag_refs, dist_refs):
         drl.remove(dist_refs.fill_value)
     allrefs = np.unique(mrl+drl)
 
-    # pre-extract author strings and year codes separately
+    # parse bibcodes
 
     authors = np.array([get_author(r) for r in allrefs])
     yearcodes = np.array([get_yearcode(r) for r in allrefs])
+    journalcodes = np.array([get_journalcode(r) for r in allrefs])
+    short_codes = np.array([get_prefix(a, 1) + y for a, y in zip(authors, yearcodes)])  # tl=1 baseline
 
-    # build reference codes
+    # build shorhand codes for table
     tl = 1
     refcodes_list = [get_prefix(a, tl) + y for a, y in zip(authors, yearcodes)]
 
-    # resolve duplicates
+    #resolve duplicates
+
     un, num = np.unique(refcodes_list, return_counts=True)
     while un.shape[0] != len(refcodes_list):
         print('found duplicate codes:', un[num>1])
@@ -85,8 +95,23 @@ def parse_references(mag_refs, dist_refs):
         dupes = [i for i, n in enumerate(refcodes_list) if counts[n] > 1]
         tl += 1
         for i in dupes:
-            refcodes_list[i] = get_prefix(authors[i], tl) + yearcodes[i]
+            prefix = get_prefix(authors[i], tl)
+            base_author = authors[i][2:] if authors[i].lower().startswith('vd') else authors[i]
+            if len(base_author) < tl:
+                refcodes_list[i] = get_prefix(authors[i], tl) + journalcodes[i] + yearcodes[i]
+            else:
+                refcodes_list[i] = prefix + yearcodes[i]
         un, num = np.unique(refcodes_list, return_counts=True)
+
+    # final failsafe for super-prolific authors: identical author+year+journal, use shortest code + a/b/c...
+    un, num = np.unique(refcodes_list, return_counts=True)
+    dupes = set(un[num > 1])
+    if dupes:
+        seen = Counter()
+        for i, code in enumerate(refcodes_list):
+            if code in dupes:
+                refcodes_list[i] = short_codes[i] + chr(ord('a') + seen[code])
+                seen[code] += 1
     
     refcodes = np.array(refcodes_list)  # convert to array 
 
