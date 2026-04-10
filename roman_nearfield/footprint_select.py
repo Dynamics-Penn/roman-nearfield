@@ -114,7 +114,7 @@ def select_gcs_in_gps_main(gcs=None):
     return gcs_gps
 
 
-def select_galaxies_in_footprint(fp, nbg_coords, nbgs):
+def select_galaxies_in_footprint(fp, nbg_coords, nbgs, kara=False):
     """Select nearby galaxies that fall within the Roman HLWAS footprint.
 
     Tests each galaxy's Galactic coordinates against the footprint map,
@@ -128,8 +128,10 @@ def select_galaxies_in_footprint(fp, nbg_coords, nbgs):
     nbg_coords : astropy.coordinates.SkyCoord
         Sky coordinates of the galaxies to test.
     nbgs : pandas.DataFrame or astropy.table.Table
-        Table of galaxy data with a ``'D (Mpc)'`` column used to identify
+        Table of galaxy data with a  column used to identify
         and exclude MW satellites.
+    kara : if True, assumes distance column name is ``'D (Mpc)'`` (as in Karachentsev).
+        Otherwise, assumes name is ``'distance'`` (as in LDVB).
 
     Returns
     -------
@@ -156,8 +158,10 @@ def select_galaxies_in_footprint(fp, nbg_coords, nbgs):
             else:
                 gs.append(i)
 
-    in_mw = set(np.where(nbgs['D (Mpc)'] < 0.3)[0].astype(int))
-
+    if kara: dist_key='D (Mpc)'
+    else: dist_key='distance'
+    in_mw = set(np.where(nbgs[dist_key] < 0.3)[0].astype(int))
+   
     nbgs_in_hlwas_north = sorted(set(gn).difference(in_mw))
     nbgs_in_hlwas_south = sorted(set(gs).difference(in_mw))
 
