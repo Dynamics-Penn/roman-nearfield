@@ -107,14 +107,14 @@ def read_galaxies_all(dmax=10 * u.Mpc,kara=False):
         nbg_all = table.Table.read(
             'https://github.com/apace7/local_volume_database/releases/download/'
             + version_number_string + '/comb_all.csv')
-        isgal=nbg_all['confirmed_galaxy']
+        isgal=(nbg_all['confirmed_galaxy']==1)
         ras = nbg_all['ra'] * u.deg
         decs = nbg_all['dec'] * u.deg
         dsel = nbg_all['distance'] < dmax.to(u.kpc).value
-        nbgs_all = astropy.coordinates.SkyCoord(ras[dsel*isgal], decs[dsel*isgal])
+        nbgs_all = astropy.coordinates.SkyCoord(ras[dsel&isgal], decs[dsel&isgal])
 
 
-    return nbg_all[dsel*isgal], nbgs_all
+    return nbg_all[dsel&isgal], nbgs_all
 
 
 def read_gcs(age_min=0.0, dist_max=500., vb=False):
