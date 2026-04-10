@@ -142,9 +142,17 @@ def print_latex_table_galaxies(dmin, dmax, combined_map=None, nbgs_all=None, nbg
                 which_s += ' N'
             else:
                 which_s += ' S'
+            
+            #set up some stuff to pretty print the stellar mass
             smass_oom = np.trunc(nbgs_all['mass_stellar'][i])
             smass_absc = 10**(nbgs_all['mass_stellar'][i] - smass_oom )
-            refs = np.unique([nbgs_all['ref_m_v'][i],nbgs_all['ref_distance'][i]]).tolist()
+
+            #check for nul values in reference list (ugh). eventually should rewrite this with a fn but not now
+            refs_raw = np.unique([nbgs_all['ref_m_v'][i], nbgs_all['ref_distance'][i]])
+            refs = refs_raw.filled().tolist() if hasattr(refs_raw, 'filled') else refs_raw.tolist()
+            if hasattr(refs_raw, 'mask') and np.any(refs_raw.mask):
+                refs = [r for r in refs if r != refs_raw.fill_value]
+
             out = nbgs_all['name'][i]+' & '
             out += '${0:0.2f} \\times 10^{{{1}}}$'.format(smass_absc, int(smass_oom))
             out += ' & '
