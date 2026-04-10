@@ -79,7 +79,6 @@ def parse_references(mag_refs, dist_refs):
 
     authors = np.array([get_author(r) for r in allrefs])
     yearcodes = np.array([get_yearcode(r) for r in allrefs])
-    journalcodes = np.array([get_journalcode(r) for r in allrefs])
     short_codes = np.array([get_prefix(a, 1) + y for a, y in zip(authors, yearcodes)])  # tl=1 baseline
 
     # build shorhand codes for table
@@ -89,19 +88,15 @@ def parse_references(mag_refs, dist_refs):
     #resolve duplicates
 
     un, num = np.unique(refcodes_list, return_counts=True)
-    while un.shape[0] != len(refcodes_list):
+    while un.shape[0] != len(refcodes_list) and tl <= 3:
         print('found duplicate codes:', un[num>1])
         counts = Counter(refcodes_list)
         dupes = [i for i, n in enumerate(refcodes_list) if counts[n] > 1]
         tl += 1
         for i in dupes:
-            prefix = get_prefix(authors[i], tl)
-            base_author = authors[i][2:] if authors[i].lower().startswith('vd') else authors[i]
-            if len(base_author) < tl:
-                refcodes_list[i] = get_prefix(authors[i], tl) + journalcodes[i] + yearcodes[i]
-            else:
-                refcodes_list[i] = prefix + yearcodes[i]
+            refcodes_list[i] = get_prefix(authors[i], tl) + yearcodes[i]
         un, num = np.unique(refcodes_list, return_counts=True)
+
 
     # final failsafe for super-prolific authors: identical author+year+journal, use shortest code + a/b/c...
     un, num = np.unique(refcodes_list, return_counts=True)
@@ -112,7 +107,7 @@ def parse_references(mag_refs, dist_refs):
             if code in dupes:
                 refcodes_list[i] = short_codes[i] + chr(ord('a') + seen[code])
                 seen[code] += 1
-    
+
     refcodes = np.array(refcodes_list)  # convert to array 
 
     #print out the preamble commands needed
