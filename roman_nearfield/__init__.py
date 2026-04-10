@@ -81,6 +81,17 @@ from .kinematics import (
     get_year,
 )
 
+# -- latex_outputs ------------------------------------------------------------
+from .latex_outputs import (
+    make_defcitealias,
+    make_citepalias,
+    get_author,
+    get_prefix,
+    get_yearcode,
+    parse_references,
+    print_latex_table_galaxies,
+)
+
 __all__ = [
     # config
     "DATA_DIR",
@@ -119,4 +130,12 @@ __all__ = [
     "velocity_limit",
     "velocity_limit_year",
     "get_year",
+    # latex_outputs
+    "make_defcitealias",
+    "make_citepalias",
+    "get_author",
+    "get_prefix",
+    "get_yearcode",
+    "parse_references",
+    "print_latex_table_galaxies",
 ]
