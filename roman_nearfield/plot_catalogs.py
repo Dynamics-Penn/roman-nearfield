@@ -316,7 +316,7 @@ def add_extra_galaxies(sp, cbh=None, nbg_coords=None, dists=None, glist=None,
     """
     if nbg_coords is None:
         nbg, nbg_coords = read_galaxies_all(dmax=dmax)
-        dists = nbg['D (Mpc)']
+        dists = nbg['distance']
 
     if glist is None:
         nbg_to_plot = nbg_coords
