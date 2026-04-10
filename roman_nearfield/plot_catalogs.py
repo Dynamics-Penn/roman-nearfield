@@ -172,7 +172,7 @@ def plot_galaxies(sp, gals=None, glist=None, annotate=False, glabels=None,
     from astropy.coordinates import SkyCoord
 
     if gals is None:
-        nbg, nbgs = read_galaxies(kara=True)
+        nbg, nbgs = read_galaxies()
         dists = nbg['D (Mpc)'] * u.Mpc
         norm = LogNorm(vmin=0.2, vmax=10)
         r = 80
@@ -315,7 +315,7 @@ def add_extra_galaxies(sp, cbh=None, nbg_coords=None, dists=None, glist=None,
     >>> sp, cbh = add_extra_galaxies(sp, cbh=cbh, nbg_coords=coords, dists=d)
     """
     if nbg_coords is None:
-        nbg, nbg_coords = read_galaxies_all(dmax=dmax,kara=True)
+        nbg, nbg_coords = read_galaxies_all(dmax=dmax)
         dists = nbg['D (Mpc)']
 
     if glist is None:
